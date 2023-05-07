@@ -24,7 +24,7 @@ mybatis-plus:
       logic-not-delete-value: 0
       logic-delete-value: 1
 
-
+#设置类别名  resultType="Menu">
   type-aliases-package: com.szw.demo.*.entity
 
 

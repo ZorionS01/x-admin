@@ -16,12 +16,17 @@ public class MyCorsConfig {
 
     @Bean
     public CorsFilter corsFilter(){
+        //cors配置
         CorsConfiguration configuration = new CorsConfiguration();
+        //前端服务器ip
         configuration.addAllowedOrigin("http://localhost:8888");
+        //是否允许发送cookie
         configuration.setAllowCredentials(true);
         configuration.addAllowedMethod("*");
+        //允许发送头信息
         configuration.addAllowedHeader("*");
 
+        //映射路径 拦截请求
         UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
         urlBasedCorsConfigurationSource.registerCorsConfiguration("/**",configuration);
 

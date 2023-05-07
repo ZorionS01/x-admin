@@ -6,6 +6,7 @@ import com.szw.demo.common.vo.Result;
 import com.szw.demo.sys.entity.Role;
 import com.szw.demo.sys.entity.User;
 import com.szw.demo.sys.service.IRoleService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,7 @@ public class RoleController {
     @Autowired
     private IRoleService iRoleService;
 
+    @ApiOperation("查询所有角色")
     @GetMapping("/list")
     public Result<Map<String,Object>> getRoleList(@RequestParam(value = "roleName",required = false) String roleName,
                                                   @RequestParam(value = "pageNo") Long pageNo,
@@ -47,29 +49,35 @@ public class RoleController {
     }
 
     //@RequestBody 前端json -》user对象
+    @ApiOperation("添加角色")
     @PostMapping
     public Result<?> addRole(@RequestBody Role role){
         iRoleService.addRole(role);
         return Result.success("新增角色成功！");
     }
 
+    @ApiOperation("更新角色")
     @PutMapping
     public Result<?> updateRole(@RequestBody Role role){
         iRoleService.updateRole(role);
         return Result.success("修改角色成功！");
     }
 
+    @ApiOperation("根据ID查询角色")
     @GetMapping("/{id}")
     public Result<Role> getRoleById(@PathVariable("id") Integer id){
         Role role = iRoleService.getRoleById(id);
         return Result.success(role);
     }
+
+    @ApiOperation("根据ID删除角色")
     @DeleteMapping("/{id}")
     public Result<Role> deleteRoleById(@PathVariable("id") Integer id){
         iRoleService.deleteRoleById(id);
         return Result.success("删除角色成功！");
     }
-
+    
+    @ApiOperation("查询所有角色")
     @GetMapping("/all")
     public Result<List<Role>> getAllRole(){
         List<Role> roleList = iRoleService.list();

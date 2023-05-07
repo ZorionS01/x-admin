@@ -23,7 +23,8 @@ public class MyInterceptorConfig implements WebMvcConfigurer {
         registration.addPathPatterns("/**").excludePathPatterns(
                 "/user/login",
                 "/user/info",
-                "/user/logout /error",
+                "/user/logout",
+                "/error",
                 "/swagger-ui/**",
                 "/swagger-resources/**",
                 "/v3/**");

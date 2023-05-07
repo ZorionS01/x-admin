@@ -55,6 +55,7 @@ public class JwtUtil {
         return body;
     }
 
+    //重载方法 解密转换为对象
     public <T> T parseToken(String token,Class<T> clazz){
         Claims body = Jwts.parser()
                 .setSigningKey(encodeSecret(JWT_KEY))

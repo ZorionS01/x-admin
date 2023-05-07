@@ -29,7 +29,7 @@ import java.util.Map;
 @Api(tags = {"用户接口列表"})
 @RestController
 @RequestMapping("/user")
-//@CrossOrigin 跨域处理
+//@CrossOrigin 跨域处理 设置后该控制器可以处理跨域请求
 public class UserController {
 
     @Autowired
@@ -55,6 +55,7 @@ public class UserController {
         return Result.fail(20002,"用户名或密码错误");
     }
 
+    @ApiOperation("用户信息")
     @GetMapping("/info")
     public Result<Map<String,Object>> getUserInfo(@RequestParam("token") String token){
         //根据token获取用户信息:redis
@@ -65,12 +66,14 @@ public class UserController {
         return Result.fail(20003,"登录信息无效请重新登录");
     }
 
+    @ApiOperation("用户退出")
     @PostMapping("/logout")
     public Result<?> logout(@RequestHeader("X-Token") String token ){
         iUserService.logout(token);
         return Result.success();
     }
 
+    @ApiOperation("用户列表")
     @GetMapping("/list")
     public Result<Map<String,Object>> getUserList(@RequestParam(value = "username",required = false) String username,
                                               @RequestParam(value = "phone",required = false) String phone,
@@ -91,6 +94,7 @@ public class UserController {
     }
 
     //@RequestBody 前端json -》user对象
+    @ApiOperation("添加用户")
     @PostMapping
     public Result<?> addUser(@RequestBody User user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -98,6 +102,7 @@ public class UserController {
         return Result.success("新增用户成功！");
     }
 
+    @ApiOperation("更新用户")
     @PutMapping
     public Result<?> updateUser(@RequestBody User user){
         user.setPassword(null);
@@ -105,11 +110,14 @@ public class UserController {
         return Result.success("修改用户成功！");
     }
 
+    @ApiOperation("根据ID查询用户")
     @GetMapping("/{id}")
     public Result<User> getUserById(@PathVariable("id") Integer id){
         User user = iUserService.getUserById(id);
         return Result.success(user);
     }
+
+    @ApiOperation("根据ID删除用户")
     @DeleteMapping("/{id}")
     public Result<User> deleteUserById(@PathVariable("id") Integer id){
         iUserService.deleteUserById(id);

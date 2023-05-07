@@ -153,6 +153,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
+    @Transactional
     public User getUserById(Integer id) {
         User user = this.baseMapper.selectById(id);
         LambdaQueryWrapper<UserRole> wrapper = new LambdaQueryWrapper<>();
@@ -185,6 +186,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
+    @Transactional
     public void deleteUserById(Integer id) {
         this.baseMapper.deleteById(id);
         LambdaQueryWrapper<UserRole> wrapper = new LambdaQueryWrapper<>();
